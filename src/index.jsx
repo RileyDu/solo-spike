@@ -7,18 +7,18 @@ import './index.css';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 
-// Reducer that holds our results
-const random = (state = {}, action) => {
-    if(action.type === 'SET_RANDOM') {
-        return action.payload;
-    }
-    return state;
-}
+// // Reducer that holds our results
+// const random = (state = {}, action) => {
+//     if(action.type === 'SET_RANDOM') {
+//         return action.payload;
+//     }
+//     return state;
+// }
 
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
-        random,
+        // random,
     }),
     applyMiddleware(logger),
 );

@@ -1,2 +1,3 @@
-# solo-spike
-EDA Tier 3 Solo Spike
+# Solo Spike
+
+Going to set up a simple form to get Last.fm cover art for albums

@@ -5,6 +5,9 @@ import { useEffect } from "react";
 
 function App() {
  const [coverArt, setCoverArt] = useState('')
+ const [artist, setArtist] = useState('')
+ const [album, setAlbum] = useState('')
+
 
 
 function getCoverArt(event){
@@ -19,6 +22,10 @@ axios
 .then((response) => {
   console.log(response.data);
   setCoverArt(response.data.album.image[4]['#text']);
+  setAlbum(response.data.album.name)
+  setArtist(response.data.album.artist)
+  document.getElementById("albumArtist").value = '';
+  document.getElementById("albumTitle").value = '';
 })
 .catch((error) => {
   console.error("Error during last.fm search", error);
@@ -30,21 +37,30 @@ axios
       <header className="App-header">
         <h1>Riley's Spike: Last.fm api</h1>
       </header>
+      <main>
+      <h2>Get Album Cover Art</h2>
     <form>
-      <hr/>
-      <input type="text" placeholder="Album Title" id="albumTitle" />
       <input type="text" placeholder="Album Artist" id="albumArtist" />
+      <input type="text" placeholder="Album Title" id="albumTitle" />
       <button onClick={(event) => getCoverArt(event)}>SUBMIT ARTIST</button>
-      <hr/>
-      <h2>COVER ART FOR SUBMITTED ALBUM</h2>
-      <img src={coverArt} alt="" />
+      <h2>⬇️ COVER ART FOR SUBMITTED ALBUM ⬇️</h2>
+      {coverArt ? (
+        <>
+      <img id="coverArt" src={coverArt} alt="" />
+      <h3> Artist: {artist}</h3>
+      <h3> Album: {album}</h3>
+      </>
+      ) : (
+        <h3>Waiting for Cover Art Request</h3>
+      )}
     </form>
+    </main>
     </div>
   );
 }
 
 export default App;
 
-// Get Store up and running
+
 // Insert the form values to backend
 // POST the response from Last.Fm to store

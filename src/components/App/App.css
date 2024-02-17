@@ -4,9 +4,10 @@
 
 .App-header {
   background-color: #222;
-  height: 120px;
+  /* height: 120px; */
   padding: 20px;
   color: white;
+  text-align: center;
 }
 
 .App-title {
@@ -15,6 +16,15 @@
 
 .App-intro {
   font-size: large;
+}
+
+#coverArt {
+  height: 600px;
+  width: 600px;
+}
+
+main {
+  text-align: center;
 }
 
 @keyframes App-logo-spin {

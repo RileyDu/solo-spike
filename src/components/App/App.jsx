@@ -47,8 +47,8 @@ axios
       {coverArt ? (
         <>
       <img id="coverArt" src={coverArt} alt="" />
-      <h3> Artist: {artist}</h3>
-      <h3> Album: {album}</h3>
+      <p> <strong>Artist:</strong> {artist}</p>
+      <p> <strong>Album:</strong> {album}</p>
       </>
       ) : (
         <h3>Waiting for Cover Art Request</h3>
@@ -60,7 +60,3 @@ axios
 }
 
 export default App;
-
-
-// Insert the form values to backend
-// POST the response from Last.Fm to store

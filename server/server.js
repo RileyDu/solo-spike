@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
-app.use('/api/coverart', coverartRouterRouter);
+app.use('/api/coverart', coverartRouter);
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {

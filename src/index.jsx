@@ -15,10 +15,17 @@ import logger from 'redux-logger';
 //     return state;
 // }
 
+const coverArtReducer = (state = {}, action) => {
+        if(action.type === 'SET_COVERART') {
+        return action.payload;
+    }
+    return state;
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
-        // random,
+        coverArtReducer,
     }),
     applyMiddleware(logger),
 );

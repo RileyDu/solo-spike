@@ -4,25 +4,28 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function App() {
-  const [coverArt, setCoverArt] = useState("");
-  const [artist, setArtist] = useState("");
-  const [album, setAlbum] = useState("");
-  // using local state to set the cover art, album and artists, data is from the last.fm response 
+  const [responseCoverArt, setResponseCoverArt] = useState("");
+  const [responseArtist, setResponseArtist] = useState("");
+  const [responseAlbum, setResponseAlbum] = useState("");
+// used for setting last.fm response
+
+  const [albumTitle, setAlbumTitle] = useState("");
+  const [albumArtist, setAlbumArtist] = useState("");
+  // using local state to set the album and artists form data
 
   function getCoverArt(event) {
     event.preventDefault();
-    const albumTitle = document.getElementById("albumTitle").value; 
-    const albumArtist = document.getElementById("albumArtist").value; // take the form values and submit to last.fm
+    // take the form values and submit to last.fm
     axios
       .get("/api/coverart", {
         params: { albumTitle: albumTitle, albumArtist: albumArtist }, // the params last.fm needs to get back the cover art
       })
       .then((response) => {
-        setCoverArt(response.data.album.image[4]["#text"]);
-        setAlbum(response.data.album.name); // last.fm's reponse is used here to get some auto capilization
-        setArtist(response.data.album.artist); // last.fm's reponse is used here to get some auto capilization
-        document.getElementById("albumArtist").value = "";
-        document.getElementById("albumTitle").value = ""; // reset the form
+        setResponseCoverArt(response.data.album.image[4]["#text"]);
+        setResponseAlbum(response.data.album.name); // last.fm's reponse is used here to get some auto capilization
+        setResponseArtist(response.data.album.artist); // last.fm's reponse is used here to get some auto capilization
+        setAlbumArtist("");
+        setAlbumTitle(""); // reset the form
       })
       .catch((error) => {
         console.error("Error during last.fm search", error);
@@ -36,22 +39,34 @@ function App() {
       </header>
       <main>
         <h2>Fetch Album Cover Art</h2>
-        <form>
-          <input type="text" placeholder="Album Artist" id="albumArtist" />
-          <input type="text" placeholder="Album Title" id="albumTitle" />
-          <button onClick={(event) => getCoverArt(event)}>SUBMIT ARTIST</button>
+        <form onSubmit={(event) => getCoverArt(event)}>
+          <input
+            type="text"
+            placeholder="Album Artist"
+            id="albumArtist"
+            onChange={(e) => setAlbumArtist(e.target.value)}
+            value={albumArtist}
+          />
+          <input
+            type="text"
+            placeholder="Album Title"
+            id="albumTitle"
+            onChange={(e) => setAlbumTitle(e.target.value)}
+            value={albumTitle}
+          />
+          <button type="submit">SUBMIT ARTIST</button>
         </form>
         <h2>⬇️ COVER ART FOR SUBMITTED ALBUM ⬇️</h2>
-        {coverArt ? (
+        {responseCoverArt ? (
           <>
-            <img id="coverArt" src={coverArt} alt="" />
+            <img id="coverArt" src={responseCoverArt} alt={responseAlbum}/>
             <p>
               {" "}
-              <strong>Artist:</strong> {artist}
+              <strong>Artist:</strong> {responseArtist}
             </p>
             <p>
               {" "}
-              <strong>Album:</strong> {album}
+              <strong>Album:</strong> {responseAlbum}
             </p>
           </>
         ) : (
